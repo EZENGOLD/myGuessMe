@@ -1,33 +1,47 @@
-import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import React, {useState} from 'react';
+import { StyleSheet, Text, View, Button} from 'react-native';
 import LoginComp from './components/loginComp';
 
 export default function App() {
 
-  let valeurTotal = "";
+    const [afficher, changeAfficher] = useState(false);
 
-  const takeValues = (valeur1) => {
-    valeurTotal = valeur1;
-  };
+    function setAfficher() {
+        changeAfficher(true);
+    };
 
-  return (
-    <View style={styles.principal}>
-      <Text>Bienvenue ! Veuillez entrer deux valeurs svp ! </Text>
-      <LoginComp onTakeValues={takeValues}/>
-      <Text>Total : {valeurTotal}</Text>
-    </View>
-  );
+    function setHide() {
+        changeAfficher(false);
+    };
+
+    return (
+        <View style={styles.container}>
+            <Text style={styles.text}>Okay !</Text>
+            <Button title="CLIQUEZ" onPress={setAfficher}/>
+            <LoginComp visible={afficher}/>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-  principal : {
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'stretch',
-    position: 'relative',
-    height: '94%',
-    backgroundColor: '#f3f3f3',
-    margin: 20,
-    padding: 10,
-  }
+    container: {
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
+        position: 'relative',
+        paddingTop: 50,
+        padding: 10,
+        height: '100%',
+        backgroundColor: '#f3f3f3',
+    },
+
+    text: {
+        marginVertical: 5,
+        borderTopColor: 'black',
+        borderTopWidth: 2,
+        borderBottomColor: 'black',
+        borderBottomWidth: 2,
+        lineHeight: 40,
+        textAlign: 'center',
+    },
 });
