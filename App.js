@@ -1,24 +1,10 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, Button} from 'react-native';
-import LoginComp from './components/loginComp';
+import { StyleSheet, Text, View} from 'react-native';
 
 export default function App() {
-
-    const [afficher, changeAfficher] = useState(false);
-
-    function setAfficher() {
-        changeAfficher(true);
-    };
-
-    function setHide() {
-        changeAfficher(false);
-    };
-
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Okay !</Text>
-            <Button title="CLIQUEZ" onPress={setAfficher}/>
-            <LoginComp visible={afficher}/>
+            <Text style={styles.text}>Hello world !</Text>
         </View>
     );
 }
@@ -26,7 +12,7 @@ export default function App() {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'column',
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         alignItems: 'stretch',
         position: 'relative',
         paddingTop: 50,
