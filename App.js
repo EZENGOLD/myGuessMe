@@ -1,33 +1,34 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View} from 'react-native';
 
+import Header from './components/Header';
+import StartGameScreen from './screens/StartGameScreen';
+import GameScreen from './screens/GameScreen';
+
 export default function App() {
+
+    const [userNumber, setUserNumber] = useState();
+
+    const startGameHandler = (selectedNumber) => {
+        setUserNumber(selectedNumber);
+    };
+
+    let content = <StartGameScreen onStartGame={startGameHandler}/>;
+
+    if (userNumber) {
+        content = <GameScreen userChoise={userNumber}/>;
+    }
+
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>Hello world !</Text>
+        <View style={styles.screen}>
+            <Header title="Guessing game !"/>
+            {content}
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'stretch',
-        position: 'relative',
-        paddingTop: 50,
-        padding: 10,
-        height: '100%',
-        backgroundColor: '#f3f3f3',
-    },
-
-    text: {
-        marginVertical: 5,
-        borderTopColor: 'black',
-        borderTopWidth: 2,
-        borderBottomColor: 'black',
-        borderBottomWidth: 2,
-        lineHeight: 40,
-        textAlign: 'center',
-    },
+    screen: {
+        flex: 1,
+    }
 });
