@@ -55,7 +55,7 @@ const StartGameScreen = (props) => {
             <Card style={styles.summuryContainer}>
                 <Text>You selected</Text>
                 <NumberContainer>{selectedNumber}</NumberContainer>
-                <Button title="START GAME" onPress={props.onStartGame(selectedNumber)}/>
+                <Button title="START GAME" onPress={props.onStartGame.bind(this, selectedNumber)}/>
             </Card>
         )
     }
