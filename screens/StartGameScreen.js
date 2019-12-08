@@ -12,6 +12,9 @@ import Colors from '../constants/colors';
 import Card from '../components/Card';
 import Input from '../components/Input';
 import NumberContainer from '../components/NumberContainer';
+import MyButton from '../components/MyButton';
+
+import MesStyles from '../constants/mesStyles';
 
 const StartGameScreen = (props) => {
 
@@ -53,9 +56,9 @@ const StartGameScreen = (props) => {
     if (confirmed) {
         confirmedOutput = (
             <Card style={styles.summuryContainer}>
-                <Text>You selected</Text>
+                <Text style={MesStyles.text}>You selected</Text>
                 <NumberContainer>{selectedNumber}</NumberContainer>
-                <Button title="START GAME" onPress={props.onStartGame.bind(this, selectedNumber)}/>
+                <MyButton onPressButton={props.onStartGame.bind(this, selectedNumber)}>START GAME</MyButton>
             </Card>
         )
     }
@@ -65,9 +68,9 @@ const StartGameScreen = (props) => {
             Keyboard.dismiss();
         }}>
         <View style={styles.screen}>
-            <Text style={styles.title}>Start a new game !</Text>
+            <Text style={{...MesStyles.blackTitle, ...styles.title}}>Start a new game !</Text>
             <Card style={styles.inputContainer}>
-                <Text>Select a Number</Text>
+                <Text style={MesStyles.text}>Select a Number</Text>
                 <Input
                     style={styles.input}
                     blurOnSubmit={true}
@@ -79,8 +82,8 @@ const StartGameScreen = (props) => {
                     value={valeur}
                 />
                 <View style={styles.buttonsContainer}>
-                    <View style={styles.buttons}><Button title="Reset" onPress={resetInputHandler} color={Colors.accent}/></View>
-                    <View style={styles.buttons}><Button title="Confirm" onPress={confirmInputHandler} color={Colors.primary}/></View>
+                    <View><MyButton style={{backgroundColor: Colors.accent}} onPressButton={resetInputHandler}>Reset</MyButton></View>
+                    <View><MyButton style={{backgroundColor: Colors.primary}} onPressButton={confirmInputHandler}>Confirm</MyButton></View>
                 </View>
             </Card>
             {confirmedOutput}
