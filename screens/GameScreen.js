@@ -1,5 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react';
-import {View, Text, StyleSheet, Button, Alert} from 'react-native';
+import {View, Text, StyleSheet, Alert, FlatList} from 'react-native';
+import {Ionicons} from '@expo/vector-icons';
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
@@ -25,6 +26,11 @@ const GameScreen = props => {
     const currentLow = useRef(1);
     const currentHigh = useRef(100);
     const [rounds, setRounds] = useState(0);
+    const [mesGuess, setMesGuess] = useState([{id: Math.random().toString(), value: currentGuess}]);
+
+    const addGuess = (valeur) => {
+        setMesGuess((curGuess) => [...curGuess, {id: Math.random().toString(), value: valeur}]);
+    };
 
     const {userChoice, onGameOver} = props;
 
@@ -48,6 +54,7 @@ const GameScreen = props => {
 
         const nextNumber = generateRandomBetween(currentLow.current, currentHigh.current, currentGuess);
         setCurrentGuess(nextNumber);
+        addGuess(currentGuess);
         setRounds((curRounds) => curRounds + 1);
     };
 
@@ -56,9 +63,18 @@ const GameScreen = props => {
             <Text style={MesStyles.text}>Openent's Guess</Text>
             <NumberContainer>{currentGuess}</NumberContainer>
             <Card style={styles.buttonContainer}>
-                <MyButton onPressButton={nextGuessHandler.bind(this, false)} style={{backgroundColor: Colors.accent}}>LOWER</MyButton>
-                <MyButton onPressButton={nextGuessHandler.bind(this, true)}>GREATER</MyButton>
+                <MyButton onPressButton={nextGuessHandler.bind(this, false)} style={{backgroundColor: Colors.accent}}>
+                    <Ionicons name="md-remove" size={24} color="white"/>
+                </MyButton>
+                <MyButton onPressButton={nextGuessHandler.bind(this, true)}>
+                    <Ionicons name="md-add" size={24} color="white"/>
+                </MyButton>
             </Card>
+            <FlatList
+                keyExtractor={(item, index) => item.id}
+                data = {mesGuess}
+                renderItem={itemData => {itemData.item.value}}
+            />
         </View>
     );
 };
